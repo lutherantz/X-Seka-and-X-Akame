@@ -135,3 +135,40 @@ X-Seka  : 0RKz$FxXzW!J^^xzb^I-+Y}jLRV@K%VcWop%ag8cDGLNX*ZLh<wJ@XeeZVmkUCY0!*FfgQ
 
 X-Akame : {'==AZp9Vbv9mc': 'I5RjmH!?UlGB`OnF)}wYGBz^'}
 ```
+
+### v5
+
+```python
+from sign.XSeka import Signature
+from pytermx import Color
+from urllib.parse import urlencode
+
+signer = Signature(
+    cookies = "seka=seka",
+    params = "Webid=8928",
+    data = {
+        "peter": "miles"
+    }
+).get_encrypt()
+
+print(f"{Color.BRIGHT_YELLOW}X-Seka  {Color.GREY}: {Color.BRIGHT_BLUE}{signer['X-Seka']}\n\n{Color.BRIGHT_YELLOW}X-Akame {Color.GREY}: {Color.BRIGHT_BLUE}{signer['X-Akame']}{Color.RESET}")
+
+print('\n')
+
+signer = Signature().decrypt(
+    XSeka = signer['X-Seka'],
+    XAkame = signer['X-Akame']
+)
+
+print(f"{Color.BRIGHT_YELLOW}X-Seka  {Color.GREY}: {Color.BRIGHT_BLUE}{signer['X-Seka']}\n\n{Color.BRIGHT_YELLOW}X-Akame {Color.GREY}: {Color.BRIGHT_BLUE}{signer['X-Akame']}{Color.RESET}")
+---------------------
+> py test.py
+X-Seka  : 0C35a|xX^BGJ@ZIWp;l7Sa9DP=AKESS.4707948961.JhtWZz1TYrV2cEND_SEKA
+
+X-Akame : {'=IXZ0VGc': 'ZE0*}a{'}
+
+
+X-Seka  : Cookies=seka=seka;Time=14:44:34;Params=Webid=8928
+
+X-Akame : {'peter': 'miles'}
+```
